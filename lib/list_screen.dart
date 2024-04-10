@@ -18,8 +18,14 @@ class _ListScreenState extends State<ListScreen> {
         title: const Text('Todo 리스트'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateScreen()));
+        onPressed: () async {
+          // await를 넣어서create화면에서 이쪽 화면으로 돌아올때까지 기다리도록 함
+          // Navigator.push도 future타입임
+          await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CreateScreen()),
+          );
+          setState(() {}); // create갔다가 다시 돌아오는 거 기다렸다가 화면 갱신
         },
         child: const Icon(Icons.add),
       ),

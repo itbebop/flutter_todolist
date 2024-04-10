@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todolist/create_screen.dart';
 import 'package:flutter_todolist/main.dart';
-import 'package:flutter_todolist/todo.dart';
 import 'package:flutter_todolist/todo_item.dart';
 
 class ListScreen extends StatefulWidget {
@@ -38,6 +37,11 @@ class _ListScreenState extends State<ListScreen> {
                 onTap: (todo) async {
                   todo.isDone = !todo.isDone;
                   await todo.save(); // future함수, hive제공, 이거 끝나고 setState하도록 await붙여줌
+
+                  setState(() {});
+                },
+                onDelete: (todo) async {
+                  await todo.delete(); // future, hive제공
 
                   setState(() {});
                 },

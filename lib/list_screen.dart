@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todolist/create_screen.dart';
 import 'package:flutter_todolist/main.dart';
 import 'package:flutter_todolist/todo.dart';
+import 'package:flutter_todolist/todo_item.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -31,10 +32,17 @@ class _ListScreenState extends State<ListScreen> {
       ),
       body: ListView(
         children: todos.values
-            .map((todo) => ListTile(
-                  title: Text(todo.title),
-                  subtitle: Text('${todo.dateTime}'),
-                ))
+            .map(
+              (e) => TodoItem(
+                todo: e,
+                onTap: (todo) async {
+                  todo.isDone = !todo.isDone;
+                  await todo.save(); // future함수, hive제공, 이거 끝나고 setState하도록 await붙여줌
+
+                  setState(() {});
+                },
+              ),
+            )
             .toList(),
       ),
     );
